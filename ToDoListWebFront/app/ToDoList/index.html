@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html ng-app="toDoList">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div ng-controller="toDoListController">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Des</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasks">
+                    <td>{{task.description}}</td>
+                    <td>{{task.dueDate | date}}</td>
+                </tr>
+            </tbody>
+
+
+        </table>
+        </div>
+
+    <!-- Library Scripts -->
+    <script src="../../scripts/angular.min.js"></script>
+    <script src="../../scripts/angular-resource.min.js"></script>
+    <script src="../../scripts/angular-route.min.js"></script>
+
+    <script src="../app.js"></script>
+    <!-- Services -->
+    <script src="../../Services/common.services.js"></script>
+    <script src="../../Services/toDoListFactory.js"></script>
+    <script src="toDoListController.js"></script>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+  
+</body>
+</html>
