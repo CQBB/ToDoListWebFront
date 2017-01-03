@@ -6,35 +6,88 @@
 </head>
 <body>
     <div ng-controller="toDoListController">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Des</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="task in tasks">
-                    <td>{{task.description}}</td>
-                    <td>{{task.dueDate | date}}</td>
-                </tr>
-            </tbody>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr class="row">
+                        <th class="col-lg-6">Des</th>
+                        <th class="col-lg-6">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasks" ng-include="getTemplate(task)" class="row"></tr>
+                </tbody>
 
 
-        </table>
+            </table>
+            <div class="row" ng-show="isAdd">
+                <div class="col-lg-3"><input type="text" ng-model="task.description" /></div>
+                <div class="col-lg-3"><input type="text" ng-model="task.dueDate" /></div>
+                <div class="col-lg-3"><input type="button" class="btn btn-default" value="Save" ng-click="saveAddTask(task)" /></div>
+                <div class="col-lg-3"><input type="button" class="btn btn-default" value="Cancel" ng-click="isAdd=!isAdd" /></div>
+            </div>
+            <div class="row" ng-show="!isAdd">
+                <div><input type="button" value="Add" ng-click="isAdd=!isAdd" class="btn btn-default" /></div>
+            </div>
         </div>
+
+
+
+    </div>
+    <script type="text/ng-template" id="display">
+
+        <td class="col-lg-3">{{task.description}}</td>
+        <td class="col-lg-3">{{task.dueDate | date}}</td>
+        <td class="col-lg-3"><button class="btn btn-default" ng-click="editTask(task)">Edit</button></td>
+        <td class="col-lg-3"><button class="btn btn-default" ng-click="openDeleteModal(task)">Delete</button></td>
+
+    </script>
+
+    <script type="text/ng-template" id="edit">
+        <td class="col-lg-3"><input type="text" ng-model="task.description" /></td>
+        <td class="col-lg-3"><input type="text" ng-model="task.dueDate" /></td>
+        <td>
+            <button class="btn btn-default" ng-click="saveEditTask($index,task)" class="col-lg-3">Save</button>
+            <button class="btn btn-default" ng-click="reset()" class="col-lg-3">Cancel</button>
+        </td>
+    </script>
+
+    <script type="text/ng-template" id="modal.html">
+     
+           
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Delete?</h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" ng-click="ok()" class="btn btn-default" data-dismiss="modal">Yes</button>
+                        <button type="button" ng-click="cancel()" class="btn btn-primary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+         
+        
+    </script>
 
     <!-- Library Scripts -->
     <script src="../../scripts/angular.min.js"></script>
     <script src="../../scripts/angular-resource.min.js"></script>
     <script src="../../scripts/angular-route.min.js"></script>
+    <script src="../../scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="../../scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
 
-    <script src="../app.js"></script>
     <!-- Services -->
     <script src="../../Services/common.services.js"></script>
     <script src="../../Services/toDoListFactory.js"></script>
+
+    <script src="../app.js"></script>
     <script src="toDoListController.js"></script>
+    <script src="uibModalInstanceController.js"></script>
     <link href="../../Content/bootstrap.css" rel="stylesheet" />
-  
+
+      
+    <link href="../../Content/modalStyle.css" rel="stylesheet" />
+
 </body>
 </html>

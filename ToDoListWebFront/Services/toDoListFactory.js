@@ -9,6 +9,10 @@
              toDoListFactory])
 
    function toDoListFactory($resouce, appSettings) {
-       return $resouce(appSettings.serverPath + "/api/toDoItems/:id");
+       return $resouce(appSettings.serverPath + "/api/toDoItems/:id", 
+           null,
+           {
+               'update': { method: 'PUT'}
+           });
    }
 }());
